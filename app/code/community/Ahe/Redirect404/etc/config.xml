@@ -1,0 +1,29 @@
+<?xml  version="1.0"?>
+<config>
+    <modules>
+        <Ahe_Redirect404>
+            <version>0.1.0</version>
+        </Ahe_Redirect404>
+    </modules>
+    <global>
+        <blocks>
+            <aheredirect404>
+                <class>Ahe_Redirect404_Block</class>
+            </aheredirect404> 
+        </blocks>
+        <models>
+           <aheredirect404>
+               <class>Ahe_Redirect404_Model</class>
+            </aheredirect404>
+        </models>
+        <helpers>
+            <aheredirect404>
+                <class>Ahe_Redirect404_Helper</class>
+            </aheredirect404>
+        </helpers>
+    </global>
+    <default>
+        <aheredirect404>
+        </aheredirect404>
+    </default>
+</config>
