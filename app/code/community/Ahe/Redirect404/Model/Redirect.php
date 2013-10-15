@@ -25,6 +25,11 @@
 class Ahe_Redirect404_Model_Redirect
 {
     /**
+     * HTTP Status code for the redirection
+     */
+    const REDIRECT_HTTP_STATUS_CODE = 301;
+
+    /**
      * Main function to check if a redirect exists and to trigger it in case
      * 
      * @param string $requestUri f.e. /foo/bar.html
@@ -66,7 +71,7 @@ class Ahe_Redirect404_Model_Redirect
         $targetUrl = Mage::getUrl().$targetUri;
 
         //Trigger redirect
-        header ('HTTP/1.1 301 Moved Permanently');
+        header ('HTTP/1.1 '.self::REDIRECT_HTTP_STATUS_CODE.' Moved Permanently');
         header ('Location: ' . $targetUrl);
 
         //Exit to stop further processing
