@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * Magento
  *
@@ -15,15 +14,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @author     André Herrn <info@andre-herrn.de>
  */
--->
-<config>
-    <modules>
-        <Ahe_Redirect404>
-            <active>true</active>
-            <codePool>community</codePool>
-            <depends>
-                <Mage_Catalog />
-            </depends>
-        </Ahe_Redirect404>
-    </modules>
-</config>
+
+/**
+ * Redirect Model
+ * 
+ * @category   Ahe
+ * @package    Ahe_Redirect404
+ * @author     André Herrn <info@andre-herrn.de>
+ */
+class Ahe_Redirect404_Model_Redirect
+{
+    /**
+     * Main function to check if a redirect exists and to trigger it in case
+     * 
+     * @param string $requestUri f.e. /foo/bar.html
+     * @return void
+     */
+    public function checkForRedirect($requestUri)
+    {
+        die($requestUri);
+    }
+}

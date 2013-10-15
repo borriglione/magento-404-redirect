@@ -16,11 +16,26 @@
  */
 
 /**
- * Basis Helper
+ * Observer
  * 
  * @category   Ahe
  * @package    Ahe_Redirect404
  * @author     André Herrn <info@andre-herrn.de>
  */
-class Ahe_Redirect404_Helper_Data extends Mage_Core_Helper_Abstract
-{ }
+class Ahe_Redirect404_Model_Observer
+{
+    /**
+     * Catch CMS 404 No Route action
+     *
+     * The CMS 404 No Route action is opened if no route for a given url could be found by Magento
+     *
+     * @param  Varien_Event_Observer $observer
+     * @return void
+     */
+    public function noRoute($observer)
+    {
+        Mage::getModel('aheredirect404/redirect')->checkForRedirect(
+            $observer->getEvent()->getControllerAction()->getRequest()->getRequestUri()
+        );
+    }
+}
