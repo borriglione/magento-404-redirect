@@ -16,31 +16,31 @@
  */
 
 /**
- * Observer
+ * Config Model
  * 
  * @category   Ahe
  * @package    Ahe_Redirect404
  * @author     André Herrn <info@andre-herrn.de>
  */
-class Ahe_Redirect404_Model_Observer
+class Ahe_Redirect404_Model_Config
 {
     /**
-     * Catch CMS 404 No Route action
-     *
-     * The CMS 404 No Route action is opened if no route for a given url could be found by Magento
-     *
-     * @param  Varien_Event_Observer $observer
-     * @return void
+     * Get active status
+     * 
+     * @return boolean
      */
-    public function noRoute($observer)
+    public function getIsActive()
     {
-        //Check if extension is enabled
-        if (false === Mage::getModel('aheredirect404/config')->getIsActive()) {
-            return;
-        }
-
-        Mage::getModel('aheredirect404/redirect')->checkForRedirect(
-            $observer->getEvent()->getControllerAction()->getRequest()->getRequestUri()
-        );
+        return (1 == Mage::getStoreConfig("aheredirect404/redirects/active"));
+    }
+    
+    /**
+     * Get keyword - target uri collection
+     * 
+     * @return array
+     */
+    public function getKeywordTargetCombinations()
+    {
+        return unserialize(Mage::getStoreConfig("aheredirect404/redirects/keyword_target"));
     }
 }

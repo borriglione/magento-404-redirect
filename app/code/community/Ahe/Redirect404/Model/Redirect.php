@@ -32,6 +32,44 @@ class Ahe_Redirect404_Model_Redirect
      */
     public function checkForRedirect($requestUri)
     {
-        die($requestUri);
+        //If a redirect is found for the request uri trigger the redirect
+        if ($targetUri = $this->getRedirectUri($requestUri)) {
+            $this->triggerRedirect($targetUri);
+        }
+    }
+
+    /**
+     * Get earliest redirect
+     * 
+     * @param string $requestUri
+     * @return string|boolean
+     */
+    public function getRedirectUri($requestUri)
+    {
+        foreach (Mage::getModel('aheredirect404/config')->getKeywordTargetCombinations() as $ruleSet) {
+            if (false !== strpos($requestUri, $ruleSet['keyword'])) {
+                return $ruleSet['target_uri'];
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Trigger a redirect
+     * 
+     * @param string $targetUri
+     * @return void
+     */
+    public function triggerRedirect($targetUri)
+    {
+        //Build target Url
+        $targetUrl = Mage::getUrl().$targetUri;
+
+        //Trigger redirect
+        header ('HTTP/1.1 301 Moved Permanently');
+        header ('Location: ' . $targetUrl);
+
+        //Exit to stop further processing
+        exit();
     }
 }
