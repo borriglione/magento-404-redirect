@@ -39,6 +39,19 @@
             </aheredirect404>
         </helpers>
     </global>
+    <adminhtml>
+        <events>
+            <model_config_data_save_before>
+                <observers>
+                    <mymodule>
+                        <type>singleton</type>
+                        <class>aheredirect404/observer</class>
+                        <method>prepareRuleSet</method>
+                    </mymodule>
+                </observers>
+            </model_config_data_save_before>
+        </events>
+    </adminhtml>
     <frontend>
         <events>
             <controller_action_postdispatch_cms_index_noRoute>

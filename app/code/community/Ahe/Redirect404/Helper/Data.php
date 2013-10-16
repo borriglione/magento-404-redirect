@@ -23,4 +23,41 @@
  * @author     André Herrn <info@andre-herrn.de>
  */
 class Ahe_Redirect404_Helper_Data extends Mage_Core_Helper_Abstract
-{ }
+{
+    /**
+     * Sort keyword target by priority
+     * 
+     * @param array $configData
+     * @return array
+     */
+    public function sortKeywordTarget($configData)
+    {
+        $keywordTargets = $configData['groups']['redirects']['fields']['keyword_target']['value'];
+
+        //Loop though every rule and replace the key with the priority to allow ksort
+        $sortedRules = array();
+        $i = 0;
+        foreach ($keywordTargets as $key => $rule) {
+            if ('__empty' == $key) {
+                continue;
+            }
+
+            //Add leading zeros to allow correct sort
+            $priorityWithLeadingZeros = str_pad($rule['priority'], 10 ,'0', STR_PAD_LEFT);
+            $priority = $priorityWithLeadingZeros.'_'.$i;
+
+            $sortedRules[$priority] = $rule;
+            $i++;
+        }
+
+        //Sort array by key (priority)
+        ksort($sortedRules);
+
+        //print_r($sortedRules);
+        //exit("d");
+        
+        //Reset the original values and return the result
+        $configData['groups']['redirects']['fields']['keyword_target']['value'] = $sortedRules;
+        return $configData;
+    }
+}

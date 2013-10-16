@@ -41,6 +41,11 @@ class Ahe_Redirect404_Block_Adminhtml_System_Config_Form_Field_KeywordTarget
             'label' => Mage::helper('adminhtml')->__('Target uri'),
             'style' => 'width:250px',
         ));
+
+        $this->addColumn('priority', array(
+            'label' => Mage::helper('adminhtml')->__('Priority'),
+            'style' => 'width:50px',
+        ));
         
         $this->_addAfter = false;
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add rewrite');

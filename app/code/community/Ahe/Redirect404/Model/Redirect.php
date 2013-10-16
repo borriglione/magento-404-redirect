@@ -44,7 +44,7 @@ class Ahe_Redirect404_Model_Redirect
     }
 
     /**
-     * Get earliest redirect
+     * Get redirect with highest prio
      * 
      * @param string $requestUri
      * @return string|boolean

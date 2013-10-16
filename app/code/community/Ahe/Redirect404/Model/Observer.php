@@ -43,4 +43,28 @@ class Ahe_Redirect404_Model_Observer
             $observer->getEvent()->getControllerAction()->getRequest()->getRequestUri()
         );
     }
+
+    /**
+     * Sort redirect fields by priority before saving them
+     *
+     * @param  Varien_Event_Observer $observer
+     * @return void
+     */
+    public function prepareRuleSet($observer)
+    {
+        $configObject = $configData = $observer->getEvent()->getObject();
+        $configData = $configObject->getData();
+
+        //Check if we have the correct configuration area
+        if ('aheredirect404' != $configData['section']
+            && isset($configData['groups']['redirects']['fields']['keyword_target'])) {
+            return;
+        }
+
+        //Init keyword target sort by priority
+        $configData = Mage::helper('aheredirect404/data')->sortKeywordTarget($configData);
+        
+        //Save sorted config
+        $configObject->setData($configData);
+    }
 }
